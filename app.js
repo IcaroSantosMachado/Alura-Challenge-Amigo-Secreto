@@ -24,22 +24,6 @@ function sortearAmigo(){
 
 }
 
-function teste(){
-
-    const fruits = {"primeirafruta":  [nome = 300, quantia = 2]}; 
-
-    let text = "";
-    for (let [id, [fruit, amount]] of Object.entries(fruits)) {
-    text += id + fruit + ": " + amount + "<br>";
-    }
-
-    console.log(text);
-
-
-
-}
-
-
 function atualizarListaDeAmigosSecreto(novoAmigo){
 
     amigos.push(novoAmigo); 
