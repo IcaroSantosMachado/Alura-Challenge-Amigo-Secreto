@@ -10,7 +10,9 @@ function adicionarAmigo(){
         atualizarListaDeAmigosSecreto(amigoInserido.value);
         
     } else {
-
+        amigoInserido.value = '';
+        amigoInserido.style.backgroundColor = '#e58585c9';
+        amigoInserido.placeholder = 'Amigo invalidado, insira um amigo válido.';
         alert('Amigo invalidado, insira um amigo válido')
 
     }
@@ -19,7 +21,7 @@ function adicionarAmigo(){
 function sortearAmigo(){
     
     let amigoSorteado = amigos.length != 0 ? amigos[escolherAleatoriamenteUmAmigoSecreto()] : "Não há amigos para ser sorteados.";
-    listaDeAmigosSorteados.push(amigoSorteado)
+    verificarAmigoJaEscolhido(amigoSorteado);
     alert(amigoSorteado);
 
 }
@@ -44,39 +46,28 @@ function inserirArrayNaListaAmigos(){
 function escolherAleatoriamenteUmAmigoSecreto(){
 
     let embaralhaAmigo =  Math.floor(Math.random() * amigos.length);
-    verificarAmigoJaEscolhido(embaralhaAmigo);
+    
     return embaralhaAmigo;
 
 }
 
 function verificarAmigoJaEscolhido(amigoSecretoSorteado){
-   
-    if (listaDeAmigosSorteados.includes(amigos[amigoSecretoSorteado])) {
-        verificaSeTodosAmigosJaForamSorteados();     
-        escolherAleatoriamenteUmAmigoSecreto();
+    if(listaDeAmigosSorteados.includes(amigoSecretoSorteado) && listaDeAmigosSorteados >= amigos){
+
+        listaDeAmigosSorteados = [];
+        alert('todos os amigos foram listados.')
+
+    } else if (listaDeAmigosSorteados.includes(amigoSecretoSorteado)) {
+        
+        sortearAmigo();
         
 
 
     } else {
 
-        return amigoSecretoSorteado;
+        listaDeAmigosSorteados.push(amigoSecretoSorteado);
 
     }
 
 }
 
-
-function verificaSeTodosAmigosJaForamSorteados(){
-
-    if(listaDeAmigosSorteados.length >= amigos.length){
-        listaDeAmigosSorteados = [];
-        alert('todos os amigos foram listados.')
-
-    } else {
-
-        return;
-
-    }
-
-
-}
