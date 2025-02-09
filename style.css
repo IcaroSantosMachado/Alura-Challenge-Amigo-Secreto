@@ -135,6 +135,7 @@ ul {
 }
 
 .result-list {
+    display: inline;
     margin-top: 15px;
     color: #05DF05;
     font-size: 22px;

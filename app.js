@@ -20,7 +20,8 @@ function adicionarAmigo(){
 
 function sortearAmigo(){
     
-    let amigoSorteado = amigos.length != 0 ? amigos[escolherAleatoriamenteUmAmigoSecreto()] : "Não há amigos para ser sorteados.";
+    let amigoSorteado = amigos.length != 0 ? escolherAleatoriamenteUmAmigoSecreto() : 'Não há amigos para ser sorteados.';
+    amigoSorteado = amigoSorteado;
     verificarAmigoJaEscolhido(amigoSorteado);
     alert(amigoSorteado);
 
@@ -43,21 +44,38 @@ function inserirArrayNaListaAmigos(){
 
 }
 
-function escolherAleatoriamenteUmAmigoSecreto(){
+function moverNomesNaListaAmigosParaResultados(amigoSorteado){
+    let listaResultados = document.getElementById('resultado');
+    listaAmigos.children[amigoSorteado].remove();
+    listaResultados.innerHTML = '';
+    //amigos = removerIndexDoArray(amigos, amigoSorteado);
+    //listaDeAmigosSorteados = removerIndexDoArray(listaDeAmigosSorteados, amigoSorteado);
+    amigos.splice(amigoSorteado, amigoSorteado);
+    listaDeAmigosSorteados.splice(amigoSorteado, amigoSorteado);
+    for (let i = 0; i < listaDeAmigosSorteados.length; i++) {
+      
+        listaResultados.innerHTML += '<li>' + listaDeAmigosSorteados[i] + '</li>';
+        
+    };
 
-    let embaralhaAmigo =  Math.floor(Math.random() * amigos.length);
+}
+
+function escolherAleatoriamenteUmAmigoSecreto(){
+    console.log(amigos.length)
+    let embaralhaAmigo =  Math.floor(Math.random() * (amigos.length - 1));
     
     return embaralhaAmigo;
 
 }
 
 function verificarAmigoJaEscolhido(amigoSecretoSorteado){
-    if(listaDeAmigosSorteados.includes(amigoSecretoSorteado) && listaDeAmigosSorteados >= amigos){
+
+    if(listaDeAmigosSorteados.includes(amigos[amigoSecretoSorteado]) && listaDeAmigosSorteados >= amigos){
 
         listaDeAmigosSorteados = [];
         alert('todos os amigos foram listados.')
 
-    } else if (listaDeAmigosSorteados.includes(amigoSecretoSorteado)) {
+    } else if (listaDeAmigosSorteados.includes(amigos[amigoSecretoSorteado])) {
         
         sortearAmigo();
         
@@ -65,9 +83,21 @@ function verificarAmigoJaEscolhido(amigoSecretoSorteado){
 
     } else {
 
-        listaDeAmigosSorteados.push(amigoSecretoSorteado);
-
+        listaDeAmigosSorteados.push(amigos[amigoSecretoSorteado]);
+        moverNomesNaListaAmigosParaResultados(amigoSecretoSorteado);
     }
 
 }
 
+function removerIndexDoArray(arr, index){
+    let arrayTemporario = [];
+    arr.forEach(element => {
+        if(element != arr[index]){
+
+            arrayTemporario.push(element);
+
+        } else {return;}
+    });
+
+    return arrayTemporario;
+}
